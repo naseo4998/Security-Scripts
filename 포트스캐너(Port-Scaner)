@@ -1,0 +1,15 @@
+import socket
+
+def scan_port(target, port):
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(1)
+            result = s.connect_ex((target, port))
+            if result == 0:
+                print(f"[+] {port} 포트가 열려 있습니다.")
+    except Exception as e:
+        print(f"[-] 오류 발생: {e}")
+
+target_ip = input("스캔할 대상 IP: ")
+for port in range(20, 1025):  # 20~1024번 포트 스캔
+    scan_port(target_ip, port)
